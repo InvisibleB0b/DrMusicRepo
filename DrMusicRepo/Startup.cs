@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusicLibrary;
 
 namespace DrMusicRepo
 {
@@ -24,6 +26,9 @@ namespace DrMusicRepo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ItemContext>(opt => opt.UseInMemoryDatabase("Records"));
+
+
             services.AddControllers();
         }
 
@@ -34,6 +39,8 @@ namespace DrMusicRepo
             {
                 app.UseDeveloperExceptionPage();
             }
+
+
 
             app.UseRouting();
 
